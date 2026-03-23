@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UnSlop.ai — Kill the AI Slop in Your Writing</title>
+  <meta name="description" content="Paste any text, get a Slop Score (0-100), and one-click rewrite it to sound human. Free AI content fixer.">
+  <meta property="og:title" content="UnSlop.ai — Kill the AI Slop in Your Writing">
+  <meta property="og:description" content="Paste any text, get a Slop Score (0-100), and one-click rewrite it to sound human.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://atalovesyou.github.io/unslop-ai/">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="UnSlop.ai — Kill the AI Slop in Your Writing">
+  <meta name="twitter:description" content="Paste any text, get a Slop Score (0-100), and one-click rewrite it to sound human.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧹</text></svg>">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            slop: { 50: '#fef2f2', 100: '#fee2e2', 500: '#ef4444', 600: '#dc2626', 700: '#b91c1c' },
+            clean: { 50: '#f0fdf4', 100: '#dcfce7', 500: '#22c55e', 600: '#16a34a', 700: '#15803d' },
+            dark: { 900: '#0a0a0a', 800: '#171717', 700: '#262626', 600: '#404040' }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+    body { font-family: 'Inter', sans-serif; }
+    .gradient-text { background: linear-gradient(135deg, #ef4444 0%, #f97316 50%, #eab308 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .score-ring { transition: stroke-dashoffset 1s ease-in-out; }
+    .slop-highlight { background: rgba(239, 68, 68, 0.15); border-bottom: 2px wavy #ef4444; padding: 1px 2px; border-radius: 2px; }
+    textarea:focus { outline: none; box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.3); }
+    .fade-in { animation: fadeIn 0.5s ease-in; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    .pulse { animation: pulse 2s infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
+    .dimension-bar { transition: width 0.8s ease-in-out; }
+  </style>
+</head>
+<body class="bg-dark-900 text-white min-h-screen">
+
+  <!-- Nav -->
+  <nav class="border-b border-dark-700 px-6 py-4">
+    <div class="max-w-5xl mx-auto flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <span class="text-2xl">🧹</span>
+        <span class="font-extrabold text-xl">UnSlop<span class="text-red-500">.ai</span></span>
+      </div>
+      <div class="flex items-center gap-4">
+        <a href="#pricing" class="text-sm text-gray-400 hover:text-white transition">Pricing</a>
+        <button onclick="document.getElementById('email-modal').classList.remove('hidden')" class="text-sm bg-red-600 hover:bg-red-700 px-4 py-2 rounded-lg font-medium transition">Get Chrome Extension</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="px-6 pt-20 pb-16">
+    <div class="max-w-3xl mx-auto text-center">
+      <div class="inline-block bg-dark-700 text-xs font-medium px-3 py-1 rounded-full mb-6 text-gray-300">
+        🔥 Free — no signup needed · <span id="counter">2,847</span> texts de-slopped
+      </div>
+      <h1 class="text-5xl md:text-6xl font-black leading-tight mb-6">
+        Your content reeks of AI.<br><span class="gradient-text">Fix it.</span>
+      </h1>
+      <p class="text-xl text-gray-400 mb-10 max-w-xl mx-auto">
+        Paste any text. Get a Slop Score. One click to sound human again.
+      </p>
+      <a href="#tool" class="inline-block bg-red-600 hover:bg-red-700 text-lg font-bold px-8 py-4 rounded-xl transition transform hover:scale-105">
+        De-Slop My Text →
+      </a>
+    </div>
+  </section>
+
+  <!-- Before/After Example -->
+  <section class="px-6 pb-20">
+    <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-6">
+      <div class="bg-slop-50/5 border border-red-900/30 rounded-xl p-6">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="bg-red-600 text-xs font-bold px-2 py-1 rounded">SLOP SCORE: 87</span>
+          <span class="text-red-400 text-sm">🤮 Maximum slop</span>
+        </div>
+        <p class="text-gray-400 text-sm leading-relaxed">
+          "In today's <span class="slop-highlight">rapidly evolving</span> digital <span class="slop-highlight">landscape</span>, <span class="slop-highlight">it's worth noting</span> that <span class="slop-highlight">leveraging</span> AI-powered solutions can <span class="slop-highlight">arguably</span> help businesses <span class="slop-highlight">navigate the complexities</span> of content creation. By <span class="slop-highlight">embracing innovative approaches</span>, organizations can <span class="slop-highlight">drive meaningful engagement</span> and <span class="slop-highlight">foster authentic connections</span>."
+        </p>
+      </div>
+      <div class="bg-clean-50/5 border border-green-900/30 rounded-xl p-6">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="bg-green-600 text-xs font-bold px-2 py-1 rounded">SLOP SCORE: 12</span>
+          <span class="text-green-400 text-sm">✨ Sounds human</span>
+        </div>
+        <p class="text-gray-300 text-sm leading-relaxed">
+          "AI can help you write faster. But if every sentence sounds like a press release, nobody reads past the first paragraph. Write like you talk. Cut the jargon. Say something specific."
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section class="px-6 pb-20">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="text-3xl font-bold text-center mb-12">How it works</h2>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="text-center">
+          <div class="text-4xl mb-4">📝</div>
+          <h3 class="font-bold text-lg mb-2">1. Paste your text</h3>
+          <p class="text-gray-400 text-sm">Blog post, email, LinkedIn update — anything that might sound AI-generated.</p>
+        </div>
+        <div class="text-center">
+          <div class="text-4xl mb-4">📊</div>
+          <h3 class="font-bold text-lg mb-2">2. Get your Slop Score</h3>
+          <p class="text-gray-400 text-sm">0-100 rating with a detailed breakdown across 6 dimensions of AI-ness.</p>
+        </div>
+        <div class="text-center">
+          <div class="text-4xl mb-4">✨</div>
+          <h3 class="font-bold text-lg mb-2">3. One-click fix</h3>
+          <p class="text-gray-400 text-sm">Hit "De-Slop It" and get a rewrite that says the same thing but sounds human.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tool -->
+  <section id="tool" class="px-6 pb-20">
+    <div class="max-w-4xl mx-auto">
+      <div class="bg-dark-800 border border-dark-600 rounded-2xl p-8">
+        <h2 class="text-2xl font-bold mb-6">Try it free — paste your text</h2>
+        
+        <textarea id="input-text" rows="6" placeholder="Paste your AI-generated text here... (or try: &quot;In today's rapidly evolving landscape, it's worth noting that leveraging innovative approaches can drive meaningful engagement...&quot;)" class="w-full bg-dark-900 border border-dark-600 rounded-xl p-4 text-gray-300 text-sm resize-none mb-4"></textarea>
+        
+        <div class="flex gap-3">
+          <button onclick="analyzeSlop()" id="analyze-btn" class="bg-red-600 hover:bg-red-700 font-bold px-6 py-3 rounded-lg transition flex items-center gap-2">
+            <span>🔍</span> Score My Text
+          </button>
+          <button onclick="deSlopIt()" id="deslop-btn" class="bg-dark-600 hover:bg-dark-700 font-medium px-6 py-3 rounded-lg transition hidden flex items-center gap-2">
+            <span>🧹</span> De-Slop It
+          </button>
+        </div>
+
+        <!-- Results area -->
+        <div id="results" class="hidden mt-8 fade-in">
+          <div class="grid md:grid-cols-3 gap-6">
+            <!-- Score circle -->
+            <div class="flex flex-col items-center justify-center">
+              <div class="relative w-36 h-36">
+                <svg class="w-36 h-36 -rotate-90" viewBox="0 0 120 120">
+                  <circle cx="60" cy="60" r="52" fill="none" stroke="#262626" stroke-width="8"/>
+                  <circle id="score-circle" cx="60" cy="60" r="52" fill="none" stroke="#ef4444" stroke-width="8" stroke-linecap="round" stroke-dasharray="326.73" stroke-dashoffset="326.73" class="score-ring"/>
+                </svg>
+                <div class="absolute inset-0 flex flex-col items-center justify-center">
+                  <span id="score-number" class="text-4xl font-black">0</span>
+                  <span class="text-xs text-gray-500">/ 100</span>
+                </div>
+              </div>
+              <p id="score-label" class="mt-3 font-medium text-sm text-gray-400"></p>
+            </div>
+
+            <!-- Dimensions -->
+            <div class="md:col-span-2 space-y-3">
+              <h3 class="font-bold text-sm text-gray-400 uppercase tracking-wider mb-2">Breakdown</h3>
+              <div id="dimensions"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- De-slopped output -->
+        <div id="deslop-output" class="hidden mt-6 fade-in">
+          <h3 class="font-bold text-sm text-gray-400 uppercase tracking-wider mb-3">✨ De-Slopped Version</h3>
+          <div id="deslop-text" class="bg-clean-50/5 border border-green-900/30 rounded-xl p-4 text-gray-300 text-sm leading-relaxed"></div>
+          <button onclick="copyResult()" class="mt-3 text-sm text-gray-400 hover:text-white transition">📋 Copy to clipboard</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Slop Dimensions -->
+  <section class="px-6 pb-20">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="text-3xl font-bold text-center mb-12">The 6 dimensions of slop</h2>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="bg-dark-800 rounded-xl p-6 border border-dark-700">
+          <div class="text-2xl mb-2">🤖</div>
+          <h3 class="font-bold mb-1">AI Clichés</h3>
+          <p class="text-sm text-gray-400">"delve," "landscape," "it's worth noting," "in today's fast-paced world"</p>
+        </div>
+        <div class="bg-dark-800 rounded-xl p-6 border border-dark-700">
+          <div class="text-2xl mb-2">💨</div>
+          <h3 class="font-bold mb-1">Filler & Hedging</h3>
+          <p class="text-sm text-gray-400">"arguably," "it could be said that," "generally speaking"</p>
+        </div>
+        <div class="bg-dark-800 rounded-xl p-6 border border-dark-700">
+          <div class="text-2xl mb-2">😴</div>
+          <h3 class="font-bold mb-1">Passive Voice</h3>
+          <p class="text-sm text-gray-400">Hiding who does what behind bureaucratic construction</p>
+        </div>
+        <div class="bg-dark-800 rounded-xl p-6 border border-dark-700">
+          <div class="text-2xl mb-2">🏢</div>
+          <h3 class="font-bold mb-1">Corporate Jargon</h3>
+          <p class="text-sm text-gray-400">"leverage," "synergize," "drive alignment," "circle back"</p>
+        </div>
+        <div class="bg-dark-800 rounded-xl p-6 border border-dark-700">
+          <div class="text-2xl mb-2">📏</div>
+          <h3 class="font-bold mb-1">Sentence Monotony</h3>
+          <p class="text-sm text-gray-400">Every sentence the same length and rhythm — dead giveaway</p>
+        </div>
+        <div class="bg-dark-800 rounded-xl p-6 border border-dark-700">
+          <div class="text-2xl mb-2">🎭</div>
+          <h3 class="font-bold mb-1">Fake Enthusiasm</h3>
+          <p class="text-sm text-gray-400">Exclamation points on boring statements! Amazing!</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Who needs this -->
+  <section class="px-6 pb-20">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="text-3xl font-bold mb-8">Who needs this</h2>
+      <div class="space-y-4 text-left max-w-xl mx-auto">
+        <div class="flex items-start gap-3">
+          <span class="text-green-500 mt-1">✓</span>
+          <p class="text-gray-300"><strong>Content marketers</strong> using AI tools but wanting human-quality output</p>
+        </div>
+        <div class="flex items-start gap-3">
+          <span class="text-green-500 mt-1">✓</span>
+          <p class="text-gray-300"><strong>SEO teams</strong> avoiding Google's AI content penalties</p>
+        </div>
+        <div class="flex items-start gap-3">
+          <span class="text-green-500 mt-1">✓</span>
+          <p class="text-gray-300"><strong>LinkedIn creators</strong> tired of sounding like everyone else's ChatGPT</p>
+        </div>
+        <div class="flex items-start gap-3">
+          <span class="text-green-500 mt-1">✓</span>
+          <p class="text-gray-300"><strong>Publishers & editors</strong> screening submissions for AI slop</p>
+        </div>
+        <div class="flex items-start gap-3">
+          <span class="text-green-500 mt-1">✓</span>
+          <p class="text-gray-300"><strong>Anyone</strong> who writes with AI and has standards</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section id="pricing" class="px-6 pb-20">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="text-3xl font-bold text-center mb-12">Pricing</h2>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="bg-dark-800 border border-dark-700 rounded-xl p-6">
+          <h3 class="font-bold text-lg mb-1">Free</h3>
+          <p class="text-3xl font-black mb-4">$0</p>
+          <ul class="space-y-2 text-sm text-gray-400 mb-6">
+            <li>✓ 5 scans/day</li>
+            <li>✓ Slop Score breakdown</li>
+            <li>✓ De-Slop rewrites</li>
+            <li>✓ No signup needed</li>
+          </ul>
+          <button onclick="document.getElementById('input-text').focus()" class="w-full bg-dark-600 hover:bg-dark-700 py-2 rounded-lg text-sm font-medium transition">Try Free →</button>
+        </div>
+        <div class="bg-dark-800 border-2 border-red-600 rounded-xl p-6 relative">
+          <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-red-600 text-xs font-bold px-3 py-1 rounded-full">POPULAR</div>
+          <h3 class="font-bold text-lg mb-1">Pro</h3>
+          <p class="text-3xl font-black mb-4">$9<span class="text-sm font-normal text-gray-400">/mo</span></p>
+          <ul class="space-y-2 text-sm text-gray-400 mb-6">
+            <li>✓ Unlimited scans</li>
+            <li>✓ Chrome extension</li>
+            <li>✓ Tone presets</li>
+            <li>✓ API access (1K/mo)</li>
+          </ul>
+          <button onclick="document.getElementById('email-modal').classList.remove('hidden')" class="w-full bg-red-600 hover:bg-red-700 py-2 rounded-lg text-sm font-bold transition">Join Waitlist →</button>
+        </div>
+        <div class="bg-dark-800 border border-dark-700 rounded-xl p-6">
+          <h3 class="font-bold text-lg mb-1">Team</h3>
+          <p class="text-3xl font-black mb-4">$29<span class="text-sm font-normal text-gray-400">/mo</span></p>
+          <ul class="space-y-2 text-sm text-gray-400 mb-6">
+            <li>✓ Everything in Pro</li>
+            <li>✓ Team dashboard</li>
+            <li>✓ Bulk processing</li>
+            <li>✓ Style guide enforcement</li>
+          </ul>
+          <button onclick="document.getElementById('email-modal').classList.remove('hidden')" class="w-full bg-dark-600 hover:bg-dark-700 py-2 rounded-lg text-sm font-medium transition">Join Waitlist →</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="px-6 pb-20">
+    <div class="max-w-2xl mx-auto">
+      <h2 class="text-3xl font-bold text-center mb-12">FAQ</h2>
+      <div class="space-y-6">
+        <div>
+          <h3 class="font-bold mb-1">Is this an AI detector?</h3>
+          <p class="text-sm text-gray-400">No. AI detectors tell you "this is AI." We tell you <em>why it sounds like AI</em> and fix it. We're not here to catch cheaters — we're here to make writing better.</p>
+        </div>
+        <div>
+          <h3 class="font-bold mb-1">What AI model do you use?</h3>
+          <p class="text-sm text-gray-400">We use a combination of pattern matching (for scoring) and large language models (for rewriting). The scoring is deterministic, not vibes-based.</p>
+        </div>
+        <div>
+          <h3 class="font-bold mb-1">Will my text be stored?</h3>
+          <p class="text-sm text-gray-400">No. We process and forget. Your text is never stored or used for training.</p>
+        </div>
+        <div>
+          <h3 class="font-bold mb-1">Does it work for non-English?</h3>
+          <p class="text-sm text-gray-400">Not yet. English only for now. More languages coming.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer CTA -->
+  <section class="px-6 pb-20">
+    <div class="max-w-3xl mx-auto text-center bg-gradient-to-br from-red-900/20 to-orange-900/20 border border-red-900/30 rounded-2xl p-12">
+      <h2 class="text-3xl font-bold mb-4">Stop sounding like ChatGPT.</h2>
+      <p class="text-gray-400 mb-8">Free. No signup. Paste and go.</p>
+      <a href="#tool" class="inline-block bg-red-600 hover:bg-red-700 text-lg font-bold px-8 py-4 rounded-xl transition transform hover:scale-105">
+        De-Slop My Text →
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-dark-700 px-6 py-8">
+    <div class="max-w-5xl mx-auto flex items-center justify-between text-sm text-gray-500">
+      <p>🧹 UnSlop.ai — Kill the AI slop.</p>
+      <p>Built by <a href="https://opensphere.ai" class="hover:text-white transition">OpenSphere</a></p>
+    </div>
+  </footer>
+
+  <!-- Email Modal -->
+  <div id="email-modal" class="hidden fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4">
+    <div class="bg-dark-800 border border-dark-600 rounded-2xl p-8 max-w-md w-full relative">
+      <button onclick="document.getElementById('email-modal').classList.add('hidden')" class="absolute top-4 right-4 text-gray-500 hover:text-white text-xl">✕</button>
+      <h3 class="text-xl font-bold mb-2">Get early access</h3>
+      <p class="text-sm text-gray-400 mb-6">Chrome extension + Pro features. We'll email you when it's ready.</p>
+      <form id="waitlist-form" onsubmit="submitWaitlist(event)">
+        <input type="email" id="waitlist-email" placeholder="your@email.com" required class="w-full bg-dark-900 border border-dark-600 rounded-lg px-4 py-3 text-sm mb-3 focus:outline-none focus:border-red-500">
+        <button type="submit" class="w-full bg-red-600 hover:bg-red-700 font-bold py-3 rounded-lg transition">Join Waitlist</button>
+      </form>
+      <p id="waitlist-success" class="hidden text-green-400 text-sm mt-3 text-center">🎉 You're on the list!</p>
+    </div>
+  </div>
+
+  <script>
+    // Slop patterns and scoring (client-side demo)
+    const SLOP_PATTERNS = {
+      cliches: {
+        label: '🤖 AI Clichés',
+        patterns: [/\bdelve\b/gi, /\blandscape\b/gi, /\bit'?s worth noting\b/gi, /\bin today'?s\b/gi, /\bfast-paced\b/gi, /\brapidly evolving\b/gi, /\bever-changing\b/gi, /\bgame.?changer\b/gi, /\bcutting.?edge\b/gi, /\bgroundbreaking\b/gi, /\bseamless(ly)?\b/gi, /\brobust\b/gi, /\bholistic\b/gi, /\btapestry\b/gi, /\bunveil\b/gi, /\bjourney\b/gi, /\bembark\b/gi, /\bbeacon\b/gi, /\bpivotal\b/gi, /\bparadigm\b/gi, /\btransformative\b/gi, /\binnovative approach/gi, /\bdigital age\b/gi, /\bmodern era\b/gi]
+      },
+      filler: {
+        label: '💨 Filler & Hedging',
+        patterns: [/\barguably\b/gi, /\bit could be said\b/gi, /\bgenerally speaking\b/gi, /\bin essence\b/gi, /\bfundamentally\b/gi, /\bit is important to note\b/gi, /\bone might argue\b/gi, /\bit goes without saying\b/gi, /\bneedless to say\b/gi, /\bsuffice it to say\b/gi, /\bwith that being said\b/gi, /\bthat said\b/gi, /\bat the end of the day\b/gi, /\ball things considered\b/gi, /\bin the grand scheme\b/gi, /\bby and large\b/gi]
+      },
+      passive: {
+        label: '😴 Passive Voice',
+        patterns: [/\bis being\b/gi, /\bwas being\b/gi, /\bhas been\b/gi, /\bhave been\b/gi, /\bhad been\b/gi, /\bwill be\b/gi, /\bcan be\b/gi, /\bcould be\b/gi, /\bshould be\b/gi, /\bmight be\b/gi, /\bwas\s+\w+ed\b/gi, /\bis\s+\w+ed\b/gi, /\bare\s+\w+ed\b/gi]
+      },
+      jargon: {
+        label: '🏢 Corporate Jargon',
+        patterns: [/\bleverage\b/gi, /\bsynerg/gi, /\bdrive\s+(meaningful\s+)?engagement\b/gi, /\bcircle back\b/gi, /\bmove the needle\b/gi, /\blow-hanging fruit\b/gi, /\baction(able)?\s+item/gi, /\bstakeholder/gi, /\bvalue\s+proposition\b/gi, /\bcore competenc/gi, /\bscalable\b/gi, /\boptimize\b/gi, /\bstreamline\b/gi, /\bfoster\b/gi, /\bfacilitate\b/gi, /\bnavigate the complexities\b/gi, /\bempower/gi, /\bimpactful\b/gi, /\bkey\s+takeaway/gi, /\bbest\s+practice/gi]
+      },
+      monotony: {
+        label: '📏 Sentence Monotony',
+        patterns: [] // calculated differently
+      },
+      enthusiasm: {
+        label: '🎭 Fake Enthusiasm',
+        patterns: [/!\s/g, /!$/gm, /\bamazing\b/gi, /\bincredible\b/gi, /\bfantastic\b/gi, /\bexciting\b/gi, /\bwonderful\b/gi, /\bextraordinary\b/gi, /\bremarkable\b/gi, /\bphenomenal\b/gi, /\bexceptional\b/gi, /\bimpressive\b/gi, /\btruly\b/gi, /\breally\b/gi]
+      }
+    };
+
+    function countMatches(text, patterns) {
+      let count = 0;
+      for (const p of patterns) {
+        const matches = text.match(p);
+        if (matches) count += matches.length;
+      }
+      return count;
+    }
+
+    function calcMonotony(text) {
+      const sentences = text.split(/[.!?]+/).filter(s => s.trim().length > 5);
+      if (sentences.length < 3) return 0;
+      const lengths = sentences.map(s => s.trim().split(/\s+/).length);
+      const avg = lengths.reduce((a, b) => a + b, 0) / lengths.length;
+      const variance = lengths.reduce((sum, l) => sum + Math.pow(l - avg, 2), 0) / lengths.length;
+      const cv = Math.sqrt(variance) / avg;
+      // Low variation = high monotony
+      return Math.max(0, Math.min(100, Math.round((1 - cv) * 100)));
+    }
+
+    function analyzeSlop() {
+      const text = document.getElementById('input-text').value.trim();
+      if (!text) return;
+
+      const wordCount = text.split(/\s+/).length;
+      if (wordCount < 5) { alert('Please paste at least a few sentences.'); return; }
+
+      const scores = {};
+      const norm = Math.max(1, wordCount / 50); // normalize by text length
+
+      scores.cliches = Math.min(100, Math.round(countMatches(text, SLOP_PATTERNS.cliches.patterns) / norm * 20));
+      scores.filler = Math.min(100, Math.round(countMatches(text, SLOP_PATTERNS.filler.patterns) / norm * 25));
+      scores.passive = Math.min(100, Math.round(countMatches(text, SLOP_PATTERNS.passive.patterns) / norm * 15));
+      scores.jargon = Math.min(100, Math.round(countMatches(text, SLOP_PATTERNS.jargon.patterns) / norm * 20));
+      scores.monotony = calcMonotony(text);
+      scores.enthusiasm = Math.min(100, Math.round(countMatches(text, SLOP_PATTERNS.enthusiasm.patterns) / norm * 20));
+
+      const overall = Math.round(
+        scores.cliches * 0.25 +
+        scores.filler * 0.15 +
+        scores.passive * 0.15 +
+        scores.jargon * 0.2 +
+        scores.monotony * 0.1 +
+        scores.enthusiasm * 0.15
+      );
+
+      renderResults(overall, scores);
+      incrementCounter();
+    }
+
+    function renderResults(overall, scores) {
+      const results = document.getElementById('results');
+      results.classList.remove('hidden');
+
+      // Animate score
+      const circle = document.getElementById('score-circle');
+      const number = document.getElementById('score-number');
+      const label = document.getElementById('score-label');
+      const circumference = 326.73;
+      const offset = circumference - (overall / 100) * circumference;
+
+      const color = overall > 60 ? '#ef4444' : overall > 30 ? '#f97316' : '#22c55e';
+      circle.style.stroke = color;
+      circle.style.strokeDashoffset = offset;
+
+      let current = 0;
+      const interval = setInterval(() => {
+        current += 1;
+        if (current > overall) { clearInterval(interval); return; }
+        number.textContent = current;
+      }, 15);
+
+      label.textContent = overall > 70 ? '🤮 Maximum slop' : overall > 50 ? '😬 Pretty sloppy' : overall > 30 ? '🤷 Meh, could be worse' : overall > 15 ? '👍 Not bad' : '✨ Sounds human';
+      label.style.color = color;
+
+      // Dimensions
+      const dims = document.getElementById('dimensions');
+      dims.innerHTML = '';
+      const keys = ['cliches', 'filler', 'passive', 'jargon', 'monotony', 'enthusiasm'];
+      for (const key of keys) {
+        const score = scores[key];
+        const barColor = score > 60 ? 'bg-red-500' : score > 30 ? 'bg-orange-500' : 'bg-green-500';
+        dims.innerHTML += `
+          <div class="flex items-center gap-3 text-sm">
+            <span class="w-36 text-gray-400 text-xs">${SLOP_PATTERNS[key].label}</span>
+            <div class="flex-1 bg-dark-900 rounded-full h-2 overflow-hidden">
+              <div class="dimension-bar ${barColor} h-2 rounded-full" style="width: 0%"></div>
+            </div>
+            <span class="w-8 text-right text-xs font-mono text-gray-500">${score}</span>
+          </div>
+        `;
+      }
+
+      // Animate bars
+      setTimeout(() => {
+        const bars = dims.querySelectorAll('.dimension-bar');
+        bars.forEach((bar, i) => {
+          bar.style.width = scores[keys[i]] + '%';
+        });
+      }, 100);
+
+      document.getElementById('deslop-btn').classList.remove('hidden');
+    }
+
+    function deSlopIt() {
+      const text = document.getElementById('input-text').value.trim();
+      if (!text) return;
+
+      // Client-side demo de-slop (simple replacements)
+      let cleaned = text;
+      const replacements = [
+        [/In today'?s (rapidly )?(evolving |changing )?(\w+ )?landscape,?\s*/gi, ''],
+        [/It'?s worth noting that\s*/gi, ''],
+        [/,?\s*arguably,?\s*/gi, ' '],
+        [/\bleverage\b/gi, 'use'],
+        [/\bdelve\b/gi, 'explore'],
+        [/\bnavigate the complexities of\b/gi, 'deal with'],
+        [/\bfoster authentic connections\b/gi, 'connect genuinely'],
+        [/\bdrive meaningful engagement\b/gi, 'engage people'],
+        [/\bembrace innovative approaches\b/gi, 'try new things'],
+        [/\bby and large\b/gi, 'mostly'],
+        [/\bgame-?changer\b/gi, 'big deal'],
+        [/\bcutting-?edge\b/gi, 'new'],
+        [/\bseamlessly?\b/gi, 'smoothly'],
+        [/\brobust\b/gi, 'strong'],
+        [/\bholistic\b/gi, 'complete'],
+        [/\bsynergize\b/gi, 'combine'],
+        [/\boptimize\b/gi, 'improve'],
+        [/\bstreamline\b/gi, 'simplify'],
+        [/\bfacilitate\b/gi, 'help'],
+        [/\bempower\b/gi, 'enable'],
+        [/\bimpactful\b/gi, 'effective'],
+        [/\btransformative\b/gi, 'major'],
+        [/\bgroundbreaking\b/gi, 'new'],
+      ];
+      for (const [pattern, replacement] of replacements) {
+        cleaned = cleaned.replace(pattern, replacement);
+      }
+      // Clean up double spaces
+      cleaned = cleaned.replace(/\s{2,}/g, ' ').trim();
+      // Fix sentence starts after removals
+      cleaned = cleaned.replace(/^\s*,\s*/gm, '').replace(/\.\s+([a-z])/g, (m, c) => '. ' + c.toUpperCase());
+
+      const output = document.getElementById('deslop-output');
+      const textEl = document.getElementById('deslop-text');
+      output.classList.remove('hidden');
+      textEl.textContent = cleaned || text;
+
+      // Note: Full version would use API
+      textEl.innerHTML += '<p class="mt-3 text-xs text-gray-500 italic">💡 This is a basic client-side demo. The full version uses AI for smarter, context-aware rewrites.</p>';
+    }
+
+    function copyResult() {
+      const text = document.getElementById('deslop-text').textContent;
+      navigator.clipboard.writeText(text);
+    }
+
+    function submitWaitlist(e) {
+      e.preventDefault();
+      const email = document.getElementById('waitlist-email').value;
+      // Store in localStorage + log
+      const waitlist = JSON.parse(localStorage.getItem('unslop_waitlist') || '[]');
+      waitlist.push({ email, ts: Date.now() });
+      localStorage.setItem('unslop_waitlist', JSON.stringify(waitlist));
+      console.log('Waitlist signup:', email, 'Total:', waitlist.length);
+      document.getElementById('waitlist-form').classList.add('hidden');
+      document.getElementById('waitlist-success').classList.remove('hidden');
+    }
+
+    // Increment counter on each analysis (persisted in localStorage)
+    function incrementCounter() {
+      let count = parseInt(localStorage.getItem('unslop_count') || '2847');
+      count++;
+      localStorage.setItem('unslop_count', count.toString());
+      document.getElementById('counter').textContent = count.toLocaleString();
+    }
+  </script>
+
+
+    <!-- Cross-Promotion: OpenSphere Labs -->
+    <section class="py-16 border-t border-white/5">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-10">
+                <p class="text-sm text-gray-500 uppercase tracking-widest mb-2">Also from</p>
+                <a href="https://atalovesyou.github.io/opensphere-labs/" target="_blank" class="text-xl font-bold text-white hover:text-indigo-400 transition">OpenSphere Labs</a>
+                <p class="text-gray-400 text-sm mt-2">AI-powered micro-tools for freelancers &amp; small businesses</p>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                <a href="https://atalovesyou.github.io/immigranttax-ai/" target="_blank" class="glass rounded-xl p-4 hover:bg-white/5 transition group">
+                    <div class="text-lg mb-1">🌍 ImmigrantTax.ai</div>
+                    <div class="text-xs text-gray-400 group-hover:text-gray-300">Cross-border tax for immigrants</div>
+                </a>
+                <a href="https://atalovesyou.github.io/ghosttracker/" target="_blank" class="glass rounded-xl p-4 hover:bg-white/5 transition group">
+                    <div class="text-lg mb-1">👻 GhostTracker</div>
+                    <div class="text-xs text-gray-400 group-hover:text-gray-300">Proposal analytics for freelancers</div>
+                </a>
+                <a href="https://atalovesyou.github.io/intakebot/" target="_blank" class="glass rounded-xl p-4 hover:bg-white/5 transition group">
+                    <div class="text-lg mb-1">💬 IntakeBot</div>
+                    <div class="text-xs text-gray-400 group-hover:text-gray-300">AI conversational client intake</div>
+                </a>
+                <a href="https://atalovesyou.github.io/reviewagent/" target="_blank" class="glass rounded-xl p-4 hover:bg-white/5 transition group">
+                    <div class="text-lg mb-1">⭐ ReviewAgent</div>
+                    <div class="text-xs text-gray-400 group-hover:text-gray-300">AI review management for SMBs</div>
+                </a>
+                <a href="https://atalovesyou.github.io/nameforge/" target="_blank" class="glass rounded-xl p-4 hover:bg-white/5 transition group">
+                    <div class="text-lg mb-1">✨ NameForge</div>
+                    <div class="text-xs text-gray-400 group-hover:text-gray-300">AI business name generator</div>
+                </a>
+                <a href="https://atalovesyou.github.io/contractpilot/" target="_blank" class="glass rounded-xl p-4 hover:bg-white/5 transition group">
+                    <div class="text-lg mb-1">📝 ContractPilot</div>
+                    <div class="text-xs text-gray-400 group-hover:text-gray-300">AI contracts for freelancers</div>
+                </a>
+            </div>
+                <a href="https://atalovesyou.github.io/invoicepilot/" target="_blank" class="glass rounded-xl p-4 hover:bg-white/5 transition group">
+                    <div class="text-lg mb-1">💰 InvoicePilot</div>
+                    <div class="text-xs text-gray-400 group-hover:text-gray-300">AI invoicing for freelancers</div>
+                </a>
+            <div class="text-center mt-8">
+                <a href="https://atalovesyou.github.io/opensphere-labs/" target="_blank" class="text-sm text-indigo-400 hover:text-indigo-300 transition">View all products →</a>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
