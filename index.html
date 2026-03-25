@@ -117,7 +117,7 @@
         <div class="text-center">
           <div class="text-4xl mb-4">📊</div>
           <h3 class="font-bold text-lg mb-2">2. Get your Slop Score</h3>
-          <p class="text-gray-400 text-sm">0-100 rating with a detailed breakdown across 6 dimensions of AI-ness.</p>
+          <p class="text-gray-400 text-sm">0-100 rating with a detailed breakdown across 8 dimensions of AI-ness.</p>
         </div>
         <div class="text-center">
           <div class="text-4xl mb-4">✨</div>
@@ -184,17 +184,17 @@
   <!-- Slop Dimensions -->
   <section class="px-6 pb-20">
     <div class="max-w-4xl mx-auto">
-      <h2 class="text-3xl font-bold text-center mb-12">The 6 dimensions of slop</h2>
+      <h2 class="text-3xl font-bold text-center mb-12">8 dimensions of slop</h2>
       <div class="grid md:grid-cols-2 gap-6">
         <div class="bg-dark-800 rounded-xl p-6 border border-dark-700">
           <div class="text-2xl mb-2">🤖</div>
           <h3 class="font-bold mb-1">AI Clichés</h3>
-          <p class="text-sm text-gray-400">"delve," "landscape," "it's worth noting," "in today's fast-paced world"</p>
+          <p class="text-sm text-gray-400">"delve," "tapestry," "nuanced," "multifaceted," "in the realm of," "stands as a testament"</p>
         </div>
         <div class="bg-dark-800 rounded-xl p-6 border border-dark-700">
           <div class="text-2xl mb-2">💨</div>
           <h3 class="font-bold mb-1">Filler & Hedging</h3>
-          <p class="text-sm text-gray-400">"arguably," "it could be said that," "generally speaking"</p>
+          <p class="text-sm text-gray-400">"arguably," "essentially," "it goes without saying," "for what it's worth"</p>
         </div>
         <div class="bg-dark-800 rounded-xl p-6 border border-dark-700">
           <div class="text-2xl mb-2">😴</div>
@@ -204,17 +204,27 @@
         <div class="bg-dark-800 rounded-xl p-6 border border-dark-700">
           <div class="text-2xl mb-2">🏢</div>
           <h3 class="font-bold mb-1">Corporate Jargon</h3>
-          <p class="text-sm text-gray-400">"leverage," "synergize," "drive alignment," "circle back"</p>
+          <p class="text-sm text-gray-400">"leverage," "bandwidth," "north star," "deep dive," "wheelhouse," "take offline"</p>
         </div>
         <div class="bg-dark-800 rounded-xl p-6 border border-dark-700">
           <div class="text-2xl mb-2">📏</div>
           <h3 class="font-bold mb-1">Sentence Monotony</h3>
-          <p class="text-sm text-gray-400">Every sentence the same length and rhythm — dead giveaway</p>
+          <p class="text-sm text-gray-400">Same-length sentences, same-structure paragraphs, repetitive openings</p>
         </div>
         <div class="bg-dark-800 rounded-xl p-6 border border-dark-700">
           <div class="text-2xl mb-2">🎭</div>
           <h3 class="font-bold mb-1">Fake Enthusiasm</h3>
-          <p class="text-sm text-gray-400">Exclamation points on boring statements! Amazing!</p>
+          <p class="text-sm text-gray-400">"absolutely amazing!" "literally unprecedented!" "mind-blowing!" "state-of-the-art!"</p>
+        </div>
+        <div class="bg-dark-800 rounded-xl p-6 border border-dark-700">
+          <div class="text-2xl mb-2">📐</div>
+          <h3 class="font-bold mb-1">Adverb Overuse</h3>
+          <p class="text-sm text-gray-400">Clustering -ly adverbs: "meticulously," "seamlessly," "incredibly," "remarkably"</p>
+        </div>
+        <div class="bg-dark-800 rounded-xl p-6 border border-dark-700">
+          <div class="text-2xl mb-2">📋</div>
+          <h3 class="font-bold mb-1">List Addiction</h3>
+          <p class="text-sm text-gray-400">"Firstly... secondly... moreover... furthermore... additionally... lastly"</p>
         </div>
       </div>
     </div>
@@ -302,8 +312,8 @@
           <p class="text-sm text-gray-400">No. AI detectors tell you "this is AI." We tell you <em>why it sounds like AI</em> and fix it. We're not here to catch cheaters — we're here to make writing better.</p>
         </div>
         <div>
-          <h3 class="font-bold mb-1">What AI model do you use?</h3>
-          <p class="text-sm text-gray-400">We use a combination of pattern matching (for scoring) and large language models (for rewriting). The scoring is deterministic, not vibes-based.</p>
+          <h3 class="font-bold mb-1">How does the scoring work?</h3>
+          <p class="text-sm text-gray-400">We analyze 250+ patterns across 8 dimensions: AI clichés, filler, passive voice, jargon, monotony, fake enthusiasm, adverb density, and structural patterns. Scoring is deterministic — same text always gets the same score. No vibes, no black box.</p>
         </div>
         <div>
           <h3 class="font-bold mb-1">Will my text be stored?</h3>
@@ -351,33 +361,209 @@
   </div>
 
   <script>
-    // Slop patterns and scoring (client-side demo)
+    // ═══════════════════════════════════════════════════════════════
+    // UnSlop.ai v2.0 — Production-Grade Slop Detection Engine
+    // 250+ patterns, 8 dimensions, statistical analysis, smart de-slop
+    // ═══════════════════════════════════════════════════════════════
+
     const SLOP_PATTERNS = {
       cliches: {
         label: '🤖 AI Clichés',
-        patterns: [/\bdelve\b/gi, /\blandscape\b/gi, /\bit'?s worth noting\b/gi, /\bin today'?s\b/gi, /\bfast-paced\b/gi, /\brapidly evolving\b/gi, /\bever-changing\b/gi, /\bgame.?changer\b/gi, /\bcutting.?edge\b/gi, /\bgroundbreaking\b/gi, /\bseamless(ly)?\b/gi, /\brobust\b/gi, /\bholistic\b/gi, /\btapestry\b/gi, /\bunveil\b/gi, /\bjourney\b/gi, /\bembark\b/gi, /\bbeacon\b/gi, /\bpivotal\b/gi, /\bparadigm\b/gi, /\btransformative\b/gi, /\binnovative approach/gi, /\bdigital age\b/gi, /\bmodern era\b/gi]
+        weight: 0.22,
+        multiplier: 18,
+        patterns: [
+          // Classic AI tells
+          /\bdelve\b/gi, /\blandscape\b/gi, /\btapestry\b/gi, /\bnuanced\b/gi, /\bmultifaceted\b/gi,
+          /\brealm\b/gi, /\bundeniable\b/gi, /\bunderscore\b/gi, /\bpivotal\b/gi, /\bcornerstone\b/gi,
+          /\bbustling\b/gi, /\bmeticulous(ly)?\b/gi, /\bintricate\b/gi, /\bparamount\b/gi,
+          /\bplethora\b/gi, /\bmyriad\b/gi, /\bseamless(ly)?\b/gi, /\brobust\b/gi, /\bholistic\b/gi,
+          /\bunveil/gi, /\bembark\b/gi, /\bbeacon\b/gi, /\bparadigm\b/gi, /\btransformative\b/gi,
+          /\bgroundbreaking\b/gi, /\bgame.?chang/gi, /\bcutting.?edge\b/gi,
+          /\bevergreen\b/gi, /\bwholesomeness\b/gi, /\benigma\b/gi, /\benigmatic\b/gi,
+          /\bcommendable\b/gi, /\bcommendably\b/gi, /\bnoteworthy\b/gi, /\binterplay\b/gi,
+          /\bresonate\b/gi, /\bluminous\b/gi, /\bsuperb\b/gi, /\bprofound(ly)?\b/gi,
+          /\bfostering\b/gi, /\bdemystif/gi, /\bponderous\b/gi, /\btangible\b/gi,
+          /\bburgeoning\b/gi, /\bsophisticated\b/gi, /\btreasure\s+trove\b/gi,
+          /\bdouble.?edged\s+sword\b/gi, /\bshed\s+light\b/gi,
+          // Phrase patterns
+          /\bin today'?s\b/gi, /\bfast-paced\b/gi, /\brapidly evolving\b/gi, /\bever-changing\b/gi,
+          /\bdigital age\b/gi, /\bmodern era\b/gi, /\binnovative approach/gi,
+          /\bit'?s worth noting\b/gi, /\bit bears mentioning\b/gi, /\bit should be noted\b/gi,
+          /\bstands as a testament\b/gi, /\bpave the way\b/gi, /\bin the realm of\b/gi,
+          /\bat the forefront\b/gi, /\bin a world where\b/gi, /\bas we navigate\b/gi,
+          /\bthis begs the question\b/gi, /\bone cannot overstate\b/gi,
+          /\bthe importance of\b/gi, /\ba testament to\b/gi, /\bthe power of\b/gi,
+          /\bthe beauty of\b/gi, /\bwhen it comes to\b/gi, /\bthe fact remains\b/gi,
+          /\bin light of\b/gi, /\bmoving forward\b/gi, /\bgoing forward\b/gi,
+          /\bat this juncture\b/gi, /\bgiven the circumstances\b/gi,
+          /\bit is evident that\b/gi, /\bthere is no doubt\b/gi, /\bwithout a doubt\b/gi,
+          /\brest assured\b/gi, /\bmake no mistake\b/gi,
+          /\bplay a crucial role\b/gi, /\bdelve into\b/gi, /\bdelve deeper\b/gi,
+          /\bin an era\b/gi, /\bin this day and age\b/gi, /\bas the dust settles\b/gi,
+          /\bonly time will tell\b/gi, /\btip of the iceberg\b/gi
+        ]
       },
       filler: {
         label: '💨 Filler & Hedging',
-        patterns: [/\barguably\b/gi, /\bit could be said\b/gi, /\bgenerally speaking\b/gi, /\bin essence\b/gi, /\bfundamentally\b/gi, /\bit is important to note\b/gi, /\bone might argue\b/gi, /\bit goes without saying\b/gi, /\bneedless to say\b/gi, /\bsuffice it to say\b/gi, /\bwith that being said\b/gi, /\bthat said\b/gi, /\bat the end of the day\b/gi, /\ball things considered\b/gi, /\bin the grand scheme\b/gi, /\bby and large\b/gi]
+        weight: 0.12,
+        multiplier: 22,
+        patterns: [
+          /\barguably\b/gi, /\bperhaps\b/gi, /\bessentially\b/gi, /\bbasically\b/gi,
+          /\boverall\b/gi, /\bultimately\b/gi, /\bin summary\b/gi, /\bto summarize\b/gi,
+          /\bin conclusion\b/gi, /\bin other words\b/gi, /\bthat being said\b/gi,
+          /\bhaving said that\b/gi, /\bon the other hand\b/gi,
+          /\bfrom my perspective\b/gi, /\bin my humble opinion\b/gi,
+          /\bI believe that\b/gi, /\bit seems like\b/gi, /\bit appears that\b/gi,
+          /\bit is worth mentioning\b/gi, /\bto be fair\b/gi, /\bto be honest\b/gi,
+          /\bin reality\b/gi, /\bas a matter of fact\b/gi, /\binterestingly enough\b/gi,
+          /\bnot surprisingly\b/gi, /\bas such\b/gi,
+          /\bit could be said\b/gi, /\bgenerally speaking\b/gi, /\bin essence\b/gi,
+          /\bfundamentally\b/gi, /\bit is important to note\b/gi, /\bone might argue\b/gi,
+          /\bit goes without saying\b/gi, /\bneedless to say\b/gi, /\bsuffice it to say\b/gi,
+          /\bwith that being said\b/gi, /\bthat said\b/gi, /\bat the end of the day\b/gi,
+          /\ball things considered\b/gi, /\bin the grand scheme\b/gi, /\bby and large\b/gi,
+          /\bfor what it'?s worth\b/gi, /\bif you will\b/gi, /\bso to speak\b/gi,
+          /\bmore or less\b/gi, /\bto some extent\b/gi, /\bin a sense\b/gi,
+          /\bfor the most part\b/gi, /\bin many ways\b/gi, /\bin some ways\b/gi,
+          /\bto a certain degree\b/gi, /\bto put it simply\b/gi, /\bsimply put\b/gi
+        ]
       },
       passive: {
         label: '😴 Passive Voice',
-        patterns: [/\bis being\b/gi, /\bwas being\b/gi, /\bhas been\b/gi, /\bhave been\b/gi, /\bhad been\b/gi, /\bwill be\b/gi, /\bcan be\b/gi, /\bcould be\b/gi, /\bshould be\b/gi, /\bmight be\b/gi, /\bwas\s+\w+ed\b/gi, /\bis\s+\w+ed\b/gi, /\bare\s+\w+ed\b/gi]
+        weight: 0.12,
+        multiplier: 14,
+        patterns: [
+          /\bis being\b/gi, /\bwas being\b/gi, /\bhas been\b/gi, /\bhave been\b/gi,
+          /\bhad been\b/gi, /\bwill be\b/gi, /\bcan be\b/gi, /\bcould be\b/gi,
+          /\bshould be\b/gi, /\bmight be\b/gi, /\bwould be\b/gi, /\bmay be\b/gi,
+          /\bwas\s+\w+ed\b/gi, /\bis\s+\w+ed\b/gi, /\bare\s+\w+ed\b/gi,
+          /\bwere\s+\w+ed\b/gi, /\bbeen\s+\w+ed\b/gi, /\bbe\s+\w+ed\b/gi,
+          /\bwas\s+\w+en\b/gi, /\bis\s+\w+en\b/gi, /\bare\s+\w+en\b/gi,
+          /\bit is\s+\w+ed\b/gi, /\bit was\s+\w+ed\b/gi, /\bit has been\s+\w+ed\b/gi
+        ]
       },
       jargon: {
         label: '🏢 Corporate Jargon',
-        patterns: [/\bleverage\b/gi, /\bsynerg/gi, /\bdrive\s+(meaningful\s+)?engagement\b/gi, /\bcircle back\b/gi, /\bmove the needle\b/gi, /\blow-hanging fruit\b/gi, /\baction(able)?\s+item/gi, /\bstakeholder/gi, /\bvalue\s+proposition\b/gi, /\bcore competenc/gi, /\bscalable\b/gi, /\boptimize\b/gi, /\bstreamline\b/gi, /\bfoster\b/gi, /\bfacilitate\b/gi, /\bnavigate the complexities\b/gi, /\bempower/gi, /\bimpactful\b/gi, /\bkey\s+takeaway/gi, /\bbest\s+practice/gi]
+        weight: 0.18,
+        multiplier: 18,
+        patterns: [
+          /\bleverage\b/gi, /\bsynerg/gi, /\bcircle back\b/gi, /\bmove the needle\b/gi,
+          /\blow-hanging fruit\b/gi, /\baction(able)?\s+item/gi, /\bstakeholder/gi,
+          /\bvalue\s+proposition\b/gi, /\bcore competenc/gi, /\bscalable\b/gi,
+          /\boptimize\b/gi, /\bstreamline\b/gi, /\bfoster\b/gi, /\bfacilitate\b/gi,
+          /\bnavigate the complexities\b/gi, /\bempower/gi, /\bimpactful\b/gi,
+          /\bkey\s+takeaway/gi, /\bbest\s+practice/gi,
+          /\bdrive\s+(meaningful\s+)?engagement\b/gi,
+          // Extended jargon
+          /\bbandwidth\b/gi, /\bdeep\s+dive\b/gi, /\bdouble\s+down\b/gi,
+          /\bdouble.?click\b/gi, /\bdrill\s+down\b/gi, /\becosystem\b/gi,
+          /\bend-to-end\b/gi, /\bfull.?stack\b/gi, /\bfuture.?proof\b/gi,
+          /\bgreenfield\b/gi, /\bheads.?up\b/gi, /\bideate\b/gi, /\biterate\b/gi,
+          /\blearnings\b/gi, /\bnorth\s+star\b/gi, /\bonboarding\b/gi,
+          /\boptics\b/gi, /\bpain\s+point/gi, /\bparadigm\s+shift\b/gi,
+          /\bpivot\b/gi, /\bplaybook\b/gi, /\bpush the envelope\b/gi,
+          /\bquick\s+win/gi, /\bramp\s+up\b/gi, /\broadmap\b/gi, /\brunway\b/gi,
+          /\bscale\b/gi, /\bscope\b/gi, /\bsilo\b/gi, /\bsprint\b/gi,
+          /\bswim\s+lane/gi, /\btake\s+(this\s+)?offline\b/gi, /\bthought\s+leader/gi,
+          /\btop\s+of\s+mind\b/gi, /\btouch\s+base\b/gi, /\bunpack\b/gi,
+          /\buplevel\b/gi, /\bvalue.?add\b/gi, /\bvertical\b/gi, /\bwheelhouse\b/gi,
+          /\balign(ment)?\b/gi, /\bboil the ocean\b/gi, /\bbuy.?in\b/gi,
+          /\bchampion\s+(this|the|a)\b/gi, /\bcross.?functional\b/gi,
+          /\bdeliver(able)?s\b/gi, /\bdisrupt/gi, /\bexecution\b/gi,
+          /\bgranular\b/gi, /\bholistic\b/gi, /\bintegrat/gi, /\bKPI\b/g,
+          /\bmilestone\b/gi, /\bpipeline\b/gi, /\bproactive(ly)?\b/gi,
+          /\bROI\b/g, /\bsolution\b/gi, /\btransparent/gi, /\bworkflow\b/gi
+        ]
       },
       monotony: {
         label: '📏 Sentence Monotony',
-        patterns: [] // calculated differently
+        weight: 0.08,
+        multiplier: 0, // calculated differently
+        patterns: []
       },
       enthusiasm: {
         label: '🎭 Fake Enthusiasm',
-        patterns: [/!\s/g, /!$/gm, /\bamazing\b/gi, /\bincredible\b/gi, /\bfantastic\b/gi, /\bexciting\b/gi, /\bwonderful\b/gi, /\bextraordinary\b/gi, /\bremarkable\b/gi, /\bphenomenal\b/gi, /\bexceptional\b/gi, /\bimpressive\b/gi, /\btruly\b/gi, /\breally\b/gi]
+        weight: 0.10,
+        multiplier: 18,
+        patterns: [
+          /!\s/g, /!$/gm, /\bamazing\b/gi, /\bincredible\b/gi, /\bfantastic\b/gi,
+          /\bexciting\b/gi, /\bwonderful\b/gi, /\bextraordinary\b/gi, /\bremarkable\b/gi,
+          /\bphenomenal\b/gi, /\bexceptional\b/gi, /\bimpressive\b/gi, /\btruly\b/gi,
+          /\breally\b/gi, /\babsolutely\b/gi, /\bdefinitely\b/gi, /\bsuper\b/gi,
+          /\bextremely\b/gi, /\bincredibly\b/gi, /\bliterally\b/gi, /\bunbelievab/gi,
+          /\bmind.?blow/gi, /\brevolution/gi, /\bnext.?level\b/gi, /\bworld.?class\b/gi,
+          /\bbest.?in.?class\b/gi, /\btop.?notch\b/gi, /\bstate.?of.?the.?art\b/gi,
+          /\bunprecedented\b/gi, /\bextraordinary\b/gi, /\bawe.?inspir/gi,
+          /\bstellar\b/gi, /\boutstanding\b/gi, /\bsuperb\b/gi, /\bmagnificent\b/gi,
+          /\bspectacular\b/gi, /\bbrilliant\b/gi
+        ]
+      },
+      adverbs: {
+        label: '📐 Adverb Overuse',
+        weight: 0.08,
+        multiplier: 10,
+        patterns: [
+          /\b\w+ly\b/gi // catch-all for -ly adverbs, scored by density
+        ]
+      },
+      structure: {
+        label: '📋 List Addiction',
+        weight: 0.10,
+        multiplier: 20,
+        patterns: [
+          /\bfirstly\b/gi, /\bsecondly\b/gi, /\bthirdly\b/gi, /\bfourthly\b/gi,
+          /\bfinally\b/gi, /\blastly\b/gi, /\bin addition\b/gi, /\bmoreover\b/gi,
+          /\bfurthermore\b/gi, /\badditionally\b/gi, /\blikewise\b/gi,
+          /\blet'?s\s+(explore|dive|look|examine|discuss|consider|break\s+down)\b/gi,
+          /\bhere'?s\s+(the|a|why|how|what)\b/gi, /\bhere are\b/gi,
+          /^\s*[\-\*\•]\s/gm, // bullet points
+          /^\s*\d+[\.\)]\s/gm, // numbered lists
+          /\bnumber\s+one\b/gi, /\bnumber\s+two\b/gi, /\bnumber\s+three\b/gi,
+          /\bon one hand\b.*\bon the other\b/gi,
+          /\bnot only\b.*\bbut also\b/gi
+        ]
       }
     };
+
+    // Bigram/trigram combos that are extra sloppy (bonus penalty)
+    const SLOP_COMBOS = [
+      { pattern: /\bleverage\b.*\bcutting.?edge\b/gi, bonus: 15, label: 'leverage + cutting-edge' },
+      { pattern: /\bin today'?s.*landscape\b/gi, bonus: 20, label: 'in today\'s...landscape' },
+      { pattern: /\bdelve\b.*\bnuanced\b/gi, bonus: 15, label: 'delve + nuanced' },
+      { pattern: /\btransformative\b.*\bjourney\b/gi, bonus: 15, label: 'transformative journey' },
+      { pattern: /\bseamless(ly)?\b.*\bintegrat/gi, bonus: 12, label: 'seamlessly integrate' },
+      { pattern: /\brobust\b.*\bscalable\b/gi, bonus: 12, label: 'robust + scalable' },
+      { pattern: /\bholistic\b.*\bapproach\b/gi, bonus: 10, label: 'holistic approach' },
+      { pattern: /\bnavigate\b.*\bcomplexities\b/gi, bonus: 15, label: 'navigate complexities' },
+      { pattern: /\bempower\b.*\bstakeholder/gi, bonus: 12, label: 'empower stakeholders' },
+      { pattern: /\bfoster\b.*\binnovation\b/gi, bonus: 10, label: 'foster innovation' },
+      { pattern: /\bembark\b.*\bjourney\b/gi, bonus: 15, label: 'embark on a journey' },
+      { pattern: /\brapidly evolving\b.*\blandscape\b/gi, bonus: 20, label: 'rapidly evolving landscape' },
+    ];
+
+    // Opening sentence patterns (extra penalty for sloppy openers)
+    const OPENER_PATTERNS = [
+      /^In today'?s/im, /^As we navigate/im, /^In an era/im, /^In a world/im,
+      /^It'?s no secret/im, /^It goes without saying/im, /^When it comes to/im,
+      /^In the ever/im, /^As the\s+\w+\s+landscape/im, /^The\s+\w+\s+landscape/im,
+      /^Have you ever wondered/im, /^Let me tell you/im, /^Picture this/im,
+      /^Imagine a world/im, /^In this article/im, /^In this post/im, /^In this blog/im
+    ];
+
+    // ─── Utility Functions ───
+
+    function findAllMatches(text, patterns) {
+      const matches = [];
+      for (const p of patterns) {
+        const regex = new RegExp(p.source, p.flags);
+        let m;
+        while ((m = regex.exec(text)) !== null) {
+          matches.push({ text: m[0], index: m.index, length: m[0].length });
+          if (!p.global) break;
+        }
+      }
+      return matches;
+    }
 
     function countMatches(text, patterns) {
       let count = 0;
@@ -395,75 +581,200 @@
       const avg = lengths.reduce((a, b) => a + b, 0) / lengths.length;
       const variance = lengths.reduce((sum, l) => sum + Math.pow(l - avg, 2), 0) / lengths.length;
       const cv = Math.sqrt(variance) / avg;
-      // Low variation = high monotony
-      return Math.max(0, Math.min(100, Math.round((1 - cv) * 100)));
+      // Low variation = high monotony. Also check paragraph uniformity.
+      const paragraphs = text.split(/\n\s*\n/).filter(p => p.trim().length > 10);
+      let paraScore = 0;
+      if (paragraphs.length >= 3) {
+        const paraLens = paragraphs.map(p => p.trim().split(/\s+/).length);
+        const paraAvg = paraLens.reduce((a, b) => a + b, 0) / paraLens.length;
+        const paraVar = paraLens.reduce((s, l) => s + Math.pow(l - paraAvg, 2), 0) / paraLens.length;
+        const paraCv = Math.sqrt(paraVar) / paraAvg;
+        paraScore = Math.max(0, Math.min(40, Math.round((1 - paraCv) * 40)));
+      }
+      // Check if sentences start with similar patterns
+      const starts = sentences.map(s => s.trim().split(/\s+/).slice(0, 2).join(' ').toLowerCase());
+      const startSet = new Set(starts);
+      const startRepeat = Math.max(0, Math.min(20, Math.round((1 - startSet.size / starts.length) * 40)));
+      const sentenceScore = Math.max(0, Math.min(60, Math.round((1 - cv) * 80)));
+      return Math.min(100, sentenceScore + paraScore + startRepeat);
     }
+
+    function calcAdverbDensity(text) {
+      const words = text.split(/\s+/);
+      const totalWords = words.length;
+      if (totalWords < 10) return 0;
+      // Common -ly words that AREN'T adverbs (or are fine)
+      const exceptions = new Set(['only','early','family','daily','likely','lonely','friendly','lovely','rally','belly','holy','july','italy','supply','apply','reply','fly','rely','multiply','bully','ally','comply','imply','jelly','hilly','silly','folly','jolly','molly','polly','dolly','tally','fully']);
+      let adverbCount = 0;
+      for (const w of words) {
+        const lower = w.toLowerCase().replace(/[^a-z]/g, '');
+        if (lower.endsWith('ly') && lower.length > 3 && !exceptions.has(lower)) {
+          adverbCount++;
+        }
+      }
+      const density = adverbCount / totalWords;
+      // >5% adverbs = very sloppy, 2-3% = normal, <1% = clean
+      return Math.min(100, Math.round(Math.max(0, (density - 0.015) / 0.04) * 100));
+    }
+
+    function getTextStats(text) {
+      const words = text.split(/\s+/).filter(w => w.length > 0);
+      const sentences = text.split(/[.!?]+/).filter(s => s.trim().length > 5);
+      const paragraphs = text.split(/\n\s*\n/).filter(p => p.trim().length > 0);
+      const avgSentLen = sentences.length > 0 ? Math.round(words.length / sentences.length) : 0;
+      // Flesch-Kincaid approx (syllable counting)
+      const syllables = words.reduce((sum, w) => sum + countSyllables(w), 0);
+      const fk = sentences.length > 0 ? Math.round(206.835 - 1.015 * (words.length / sentences.length) - 84.6 * (syllables / words.length)) : 0;
+      const readingLevel = fk > 80 ? 'Easy' : fk > 60 ? 'Standard' : fk > 40 ? 'Moderate' : fk > 20 ? 'Difficult' : 'Academic';
+      return { words: words.length, sentences: sentences.length, paragraphs: paragraphs.length, avgSentLen, readability: fk, readingLevel };
+    }
+
+    function countSyllables(word) {
+      word = word.toLowerCase().replace(/[^a-z]/g, '');
+      if (word.length <= 3) return 1;
+      word = word.replace(/(?:[^laeiouy]es|ed|[^laeiouy]e)$/, '');
+      word = word.replace(/^y/, '');
+      const m = word.match(/[aeiouy]{1,2}/g);
+      return m ? m.length : 1;
+    }
+
+    // ─── Main Analysis ───
+
+    let lastAnalysis = null;
 
     function analyzeSlop() {
       const text = document.getElementById('input-text').value.trim();
       if (!text) return;
-
       const wordCount = text.split(/\s+/).length;
-      if (wordCount < 5) { alert('Please paste at least a few sentences.'); return; }
+      if (wordCount < 10) { alert('Please paste at least a few sentences (10+ words).'); return; }
 
+      const norm = Math.max(1, wordCount / 50);
       const scores = {};
-      const norm = Math.max(1, wordCount / 50); // normalize by text length
+      const allMatches = {};
 
-      scores.cliches = Math.min(100, Math.round(countMatches(text, SLOP_PATTERNS.cliches.patterns) / norm * 20));
-      scores.filler = Math.min(100, Math.round(countMatches(text, SLOP_PATTERNS.filler.patterns) / norm * 25));
-      scores.passive = Math.min(100, Math.round(countMatches(text, SLOP_PATTERNS.passive.patterns) / norm * 15));
-      scores.jargon = Math.min(100, Math.round(countMatches(text, SLOP_PATTERNS.jargon.patterns) / norm * 20));
-      scores.monotony = calcMonotony(text);
-      scores.enthusiasm = Math.min(100, Math.round(countMatches(text, SLOP_PATTERNS.enthusiasm.patterns) / norm * 20));
+      // Score each dimension
+      const keys = Object.keys(SLOP_PATTERNS);
+      for (const key of keys) {
+        const dim = SLOP_PATTERNS[key];
+        if (key === 'monotony') {
+          scores[key] = calcMonotony(text);
+          allMatches[key] = [];
+        } else if (key === 'adverbs') {
+          scores[key] = calcAdverbDensity(text);
+          allMatches[key] = findAllMatches(text, dim.patterns).slice(0, 20);
+        } else {
+          const matches = findAllMatches(text, dim.patterns);
+          allMatches[key] = matches;
+          scores[key] = Math.min(100, Math.round(matches.length / norm * dim.multiplier));
+        }
+      }
 
-      const overall = Math.round(
-        scores.cliches * 0.25 +
-        scores.filler * 0.15 +
-        scores.passive * 0.15 +
-        scores.jargon * 0.2 +
-        scores.monotony * 0.1 +
-        scores.enthusiasm * 0.15
-      );
+      // Combo bonus
+      let comboBonus = 0;
+      const combosFound = [];
+      for (const combo of SLOP_COMBOS) {
+        if (combo.pattern.test(text)) {
+          comboBonus += combo.bonus;
+          combosFound.push(combo.label);
+        }
+      }
 
-      renderResults(overall, scores);
+      // Opener penalty
+      let openerPenalty = 0;
+      for (const op of OPENER_PATTERNS) {
+        if (op.test(text)) { openerPenalty = 8; break; }
+      }
+
+      // Weighted overall score
+      let overall = 0;
+      for (const key of keys) {
+        overall += scores[key] * SLOP_PATTERNS[key].weight;
+      }
+      overall = Math.min(100, Math.round(overall + comboBonus * 0.3 + openerPenalty));
+
+      // Collect worst offenders
+      const offenders = [];
+      for (const key of keys) {
+        for (const m of (allMatches[key] || [])) {
+          offenders.push({ text: m.text, dim: SLOP_PATTERNS[key].label, index: m.index });
+        }
+      }
+      for (const combo of combosFound) {
+        offenders.push({ text: combo, dim: '🔗 Combo', index: -1 });
+      }
+      // Dedupe and sort by frequency
+      const freqMap = {};
+      for (const o of offenders) {
+        const k = o.text.toLowerCase().trim();
+        if (!freqMap[k]) freqMap[k] = { ...o, count: 0 };
+        freqMap[k].count++;
+      }
+      const topOffenders = Object.values(freqMap).sort((a, b) => b.count - a.count).slice(0, 8);
+
+      const stats = getTextStats(text);
+
+      lastAnalysis = { text, overall, scores, allMatches, topOffenders, combosFound, stats };
+      renderResults(overall, scores, topOffenders, stats, text, allMatches);
       incrementCounter();
     }
 
-    function renderResults(overall, scores) {
+    function renderResults(overall, scores, topOffenders, stats, text, allMatches) {
       const results = document.getElementById('results');
       results.classList.remove('hidden');
 
-      // Animate score
+      // Score animation
       const circle = document.getElementById('score-circle');
       const number = document.getElementById('score-number');
       const label = document.getElementById('score-label');
       const circumference = 326.73;
       const offset = circumference - (overall / 100) * circumference;
-
       const color = overall > 60 ? '#ef4444' : overall > 30 ? '#f97316' : '#22c55e';
       circle.style.stroke = color;
       circle.style.strokeDashoffset = offset;
 
+      // Animated counter
+      number.textContent = '0';
       let current = 0;
+      const step = Math.max(1, Math.floor(overall / 40));
       const interval = setInterval(() => {
-        current += 1;
-        if (current > overall) { clearInterval(interval); return; }
+        current = Math.min(current + step, overall);
         number.textContent = current;
-      }, 15);
+        if (current >= overall) clearInterval(interval);
+      }, 20);
 
-      label.textContent = overall > 70 ? '🤮 Maximum slop' : overall > 50 ? '😬 Pretty sloppy' : overall > 30 ? '🤷 Meh, could be worse' : overall > 15 ? '👍 Not bad' : '✨ Sounds human';
+      const labels = {
+        90: '☠️ AI slop overdose', 70: '🤮 Maximum slop', 50: '😬 Pretty sloppy',
+        30: '🤷 Could be worse', 15: '👍 Not bad', 0: '✨ Sounds human'
+      };
+      const thresholds = [90, 70, 50, 30, 15, 0];
+      label.textContent = labels[thresholds.find(t => overall >= t)];
       label.style.color = color;
+
+      // Text stats
+      let statsEl = document.getElementById('text-stats');
+      if (!statsEl) {
+        statsEl = document.createElement('div');
+        statsEl.id = 'text-stats';
+        statsEl.className = 'mt-4 flex flex-wrap gap-3';
+        results.parentElement.insertBefore(statsEl, results);
+      }
+      statsEl.innerHTML = `
+        <span class="bg-dark-700 px-3 py-1 rounded-full text-xs text-gray-400">${stats.words} words</span>
+        <span class="bg-dark-700 px-3 py-1 rounded-full text-xs text-gray-400">${stats.sentences} sentences</span>
+        <span class="bg-dark-700 px-3 py-1 rounded-full text-xs text-gray-400">~${stats.avgSentLen} words/sentence</span>
+        <span class="bg-dark-700 px-3 py-1 rounded-full text-xs text-gray-400">${stats.readingLevel} (${stats.readability})</span>
+      `;
 
       // Dimensions
       const dims = document.getElementById('dimensions');
       dims.innerHTML = '';
-      const keys = ['cliches', 'filler', 'passive', 'jargon', 'monotony', 'enthusiasm'];
+      const keys = Object.keys(SLOP_PATTERNS);
       for (const key of keys) {
         const score = scores[key];
         const barColor = score > 60 ? 'bg-red-500' : score > 30 ? 'bg-orange-500' : 'bg-green-500';
         dims.innerHTML += `
           <div class="flex items-center gap-3 text-sm">
-            <span class="w-36 text-gray-400 text-xs">${SLOP_PATTERNS[key].label}</span>
+            <span class="w-40 text-gray-400 text-xs">${SLOP_PATTERNS[key].label}</span>
             <div class="flex-1 bg-dark-900 rounded-full h-2 overflow-hidden">
               <div class="dimension-bar ${barColor} h-2 rounded-full" style="width: 0%"></div>
             </div>
@@ -471,90 +782,291 @@
           </div>
         `;
       }
-
-      // Animate bars
       setTimeout(() => {
         const bars = dims.querySelectorAll('.dimension-bar');
-        bars.forEach((bar, i) => {
-          bar.style.width = scores[keys[i]] + '%';
-        });
+        bars.forEach((bar, i) => { bar.style.width = scores[keys[i]] + '%'; });
       }, 100);
+
+      // Worst offenders
+      let offenderEl = document.getElementById('worst-offenders');
+      if (!offenderEl) {
+        offenderEl = document.createElement('div');
+        offenderEl.id = 'worst-offenders';
+        offenderEl.className = 'mt-6 fade-in';
+        dims.parentElement.appendChild(offenderEl);
+      }
+      if (topOffenders.length > 0) {
+        offenderEl.innerHTML = `
+          <h3 class="font-bold text-sm text-gray-400 uppercase tracking-wider mb-3">⚠️ Worst Offenders</h3>
+          <div class="flex flex-wrap gap-2">
+            ${topOffenders.map(o => `
+              <span class="bg-red-900/30 border border-red-800/40 text-red-300 text-xs px-2 py-1 rounded-lg">
+                "${o.text}"${o.count > 1 ? ` <span class="text-red-500 font-bold">×${o.count}</span>` : ''}
+              </span>
+            `).join('')}
+          </div>
+        `;
+      } else {
+        offenderEl.innerHTML = '<p class="text-sm text-green-400 mt-4">✨ No major slop patterns detected!</p>';
+      }
+
+      // Highlighted text view
+      let highlightEl = document.getElementById('highlighted-text');
+      if (!highlightEl) {
+        highlightEl = document.createElement('div');
+        highlightEl.id = 'highlighted-text';
+        highlightEl.className = 'mt-6 fade-in';
+        offenderEl.parentElement.appendChild(highlightEl);
+      }
+      if (overall > 10) {
+        const highlighted = highlightSlop(text, allMatches);
+        highlightEl.innerHTML = `
+          <details class="group">
+            <summary class="cursor-pointer font-bold text-sm text-gray-400 uppercase tracking-wider mb-3 hover:text-white transition">
+              🔍 View Highlighted Text <span class="text-xs font-normal">(click to expand)</span>
+            </summary>
+            <div class="bg-dark-900 border border-dark-600 rounded-xl p-4 text-sm leading-relaxed text-gray-300 max-h-64 overflow-y-auto mt-2">
+              ${highlighted}
+            </div>
+          </details>
+        `;
+      } else {
+        highlightEl.innerHTML = '';
+      }
+
+      // Share button
+      let shareEl = document.getElementById('share-btn');
+      if (!shareEl) {
+        shareEl = document.createElement('div');
+        shareEl.id = 'share-btn';
+        shareEl.className = 'mt-4';
+        highlightEl.parentElement.appendChild(shareEl);
+      }
+      shareEl.innerHTML = `
+        <button onclick="shareScore()" class="text-sm text-gray-400 hover:text-white transition flex items-center gap-2">
+          📤 Share your Slop Score
+        </button>
+      `;
 
       document.getElementById('deslop-btn').classList.remove('hidden');
     }
+
+    function highlightSlop(text, allMatches) {
+      // Collect all match positions
+      const positions = [];
+      for (const key of Object.keys(allMatches)) {
+        for (const m of allMatches[key]) {
+          if (m.index >= 0) {
+            positions.push({ start: m.index, end: m.index + m.length, dim: key });
+          }
+        }
+      }
+      // Sort by start position
+      positions.sort((a, b) => a.start - b.start);
+      // Build highlighted HTML (merge overlapping)
+      let result = '';
+      let cursor = 0;
+      for (const pos of positions) {
+        if (pos.start < cursor) continue; // skip overlapping
+        result += escapeHtml(text.substring(cursor, pos.start));
+        const dimColors = {
+          cliches: 'bg-red-900/40 border-b-2 border-red-500',
+          filler: 'bg-yellow-900/40 border-b-2 border-yellow-500',
+          passive: 'bg-blue-900/40 border-b-2 border-blue-500',
+          jargon: 'bg-purple-900/40 border-b-2 border-purple-500',
+          enthusiasm: 'bg-pink-900/40 border-b-2 border-pink-500',
+          adverbs: 'bg-orange-900/30 border-b border-orange-500/50',
+          structure: 'bg-teal-900/40 border-b-2 border-teal-500'
+        };
+        const cls = dimColors[pos.dim] || 'bg-red-900/40';
+        result += `<span class="${cls} px-0.5 rounded" title="${SLOP_PATTERNS[pos.dim]?.label || pos.dim}">${escapeHtml(text.substring(pos.start, pos.end))}</span>`;
+        cursor = pos.end;
+      }
+      result += escapeHtml(text.substring(cursor));
+      return result.replace(/\n/g, '<br>');
+    }
+
+    function escapeHtml(str) {
+      return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    function shareScore() {
+      if (!lastAnalysis) return;
+      const s = lastAnalysis;
+      const shareText = `My writing got a Slop Score of ${s.overall}/100 on UnSlop.ai\n${s.overall > 50 ? '😬' : '✨'} ${s.stats.words} words analyzed\nCheck yours → https://atalovesyou.github.io/unslop-ai/`;
+      navigator.clipboard.writeText(shareText).then(() => {
+        const btn = document.querySelector('#share-btn button');
+        const orig = btn.innerHTML;
+        btn.innerHTML = '✅ Copied to clipboard!';
+        setTimeout(() => { btn.innerHTML = orig; }, 2000);
+      });
+    }
+
+    // ─── De-Slop Engine ───
 
     function deSlopIt() {
       const text = document.getElementById('input-text').value.trim();
       if (!text) return;
 
-      // Client-side demo de-slop (simple replacements)
+      const origWordCount = text.split(/\s+/).length;
       let cleaned = text;
+
       const replacements = [
+        // Remove filler openers entirely
         [/In today'?s (rapidly )?(evolving |changing )?(\w+ )?landscape,?\s*/gi, ''],
         [/It'?s worth noting that\s*/gi, ''],
+        [/It is important to note that\s*/gi, ''],
+        [/It goes without saying that\s*/gi, ''],
+        [/Needless to say,?\s*/gi, ''],
+        [/As we (navigate|delve into|explore) (the|this)\s*/gi, ''],
+        [/In an era (of|where)\s*/gi, ''],
+        [/In a world where\s*/gi, ''],
+        [/When it comes to\s+/gi, 'For '],
+        [/At the end of the day,?\s*/gi, ''],
+        [/All things considered,?\s*/gi, ''],
+        [/In the grand scheme of things,?\s*/gi, ''],
+        [/By and large,?\s*/gi, ''],
+        [/For what it'?s worth,?\s*/gi, ''],
+        [/With that being said,?\s*/gi, ''],
+        [/Having said that,?\s*/gi, ''],
+        [/That being said,?\s*/gi, ''],
         [/,?\s*arguably,?\s*/gi, ' '],
-        [/\bleverage\b/gi, 'use'],
-        [/\bdelve\b/gi, 'explore'],
+        [/,?\s*essentially,?\s*/gi, ' '],
+        [/,?\s*basically,?\s*/gi, ' '],
+        [/,?\s*fundamentally,?\s*/gi, ' '],
+        [/,?\s*generally speaking,?\s*/gi, ' '],
+        [/,?\s*in essence,?\s*/gi, ' '],
+        [/,?\s*suffice it to say,?\s*/gi, ' '],
+        [/\bIt could be said that\s*/gi, ''],
+        [/\bOne might argue that\s*/gi, ''],
+        [/\bAs a matter of fact,?\s*/gi, ''],
+        [/\bInterestingly enough,?\s*/gi, ''],
+        // Word-level replacements
+        [/\bleverage\b/gi, 'use'], [/\bleveraging\b/gi, 'using'],
+        [/\bdelve\b/gi, 'dig'], [/\bdelving\b/gi, 'digging'],
         [/\bnavigate the complexities of\b/gi, 'deal with'],
+        [/\bnavigate\b/gi, 'handle'],
         [/\bfoster authentic connections\b/gi, 'connect genuinely'],
+        [/\bfoster\b/gi, 'build'], [/\bfostering\b/gi, 'building'],
         [/\bdrive meaningful engagement\b/gi, 'engage people'],
+        [/\bdrive engagement\b/gi, 'engage people'],
         [/\bembrace innovative approaches\b/gi, 'try new things'],
-        [/\bby and large\b/gi, 'mostly'],
-        [/\bgame-?changer\b/gi, 'big deal'],
-        [/\bcutting-?edge\b/gi, 'new'],
-        [/\bseamlessly?\b/gi, 'smoothly'],
-        [/\brobust\b/gi, 'strong'],
-        [/\bholistic\b/gi, 'complete'],
-        [/\bsynergize\b/gi, 'combine'],
-        [/\boptimize\b/gi, 'improve'],
-        [/\bstreamline\b/gi, 'simplify'],
-        [/\bfacilitate\b/gi, 'help'],
-        [/\bempower\b/gi, 'enable'],
-        [/\bimpactful\b/gi, 'effective'],
-        [/\btransformative\b/gi, 'major'],
-        [/\bgroundbreaking\b/gi, 'new'],
+        [/\bgame-?changer\b/gi, 'big shift'], [/\bgame-?changing\b/gi, 'significant'],
+        [/\bcutting-?edge\b/gi, 'new'], [/\bseamless(ly)?\b/gi, 'smooth$1'],
+        [/\brobust\b/gi, 'strong'], [/\bholistic\b/gi, 'complete'],
+        [/\bsynergize\b/gi, 'combine'], [/\bsynergy\b/gi, 'combination'],
+        [/\boptimize\b/gi, 'improve'], [/\boptimizing\b/gi, 'improving'],
+        [/\bstreamline\b/gi, 'simplify'], [/\bstreamlining\b/gi, 'simplifying'],
+        [/\bfacilitate\b/gi, 'help'], [/\bfacilitating\b/gi, 'helping'],
+        [/\bempower\b/gi, 'enable'], [/\bempowering\b/gi, 'enabling'],
+        [/\bimpactful\b/gi, 'effective'], [/\btransformative\b/gi, 'major'],
+        [/\bgroundbreaking\b/gi, 'new'], [/\bgroundbreaking\b/gi, 'new'],
+        [/\bpivotal\b/gi, 'key'], [/\bparamount\b/gi, 'important'],
+        [/\bmyriad\b/gi, 'many'], [/\bplethora\b/gi, 'many'],
+        [/\bmultifaceted\b/gi, 'complex'], [/\bnuanced\b/gi, 'subtle'],
+        [/\bmeticulous(ly)?\b/gi, 'careful$1'], [/\bintricate\b/gi, 'detailed'],
+        [/\bparadigm shift\b/gi, 'change'], [/\bparadigm\b/gi, 'model'],
+        [/\bunprecedented\b/gi, 'rare'], [/\bburgeoning\b/gi, 'growing'],
+        [/\bcornerstone\b/gi, 'foundation'], [/\bunderscore\b/gi, 'highlight'],
+        [/\btapestry\b/gi, 'mix'], [/\bbeacon\b/gi, 'guide'],
+        [/\bembark\b/gi, 'start'], [/\bunveil\b/gi, 'show'],
+        [/\blandscape\b/gi, 'field'], [/\brealm\b/gi, 'area'],
+        [/\bdemystif(y|ied|ying)\b/gi, 'explain'],
+        [/\btangible\b/gi, 'real'], [/\bsophisticated\b/gi, 'advanced'],
+        // Corporate jargon
+        [/\bbandwidth\b/gi, 'capacity'], [/\bdeep dive\b/gi, 'close look'],
+        [/\bdouble down\b/gi, 'commit'], [/\bdrill down\b/gi, 'look closer'],
+        [/\bfuture-?proof\b/gi, 'prepare'], [/\bideate\b/gi, 'brainstorm'],
+        [/\blearnings\b/gi, 'lessons'], [/\bnorth star\b/gi, 'goal'],
+        [/\boptics\b/gi, 'appearance'], [/\bpain point/gi, 'problem'],
+        [/\bplaybook\b/gi, 'plan'], [/\bquick win/gi, 'easy fix'],
+        [/\bvalue-?add\b/gi, 'bonus'], [/\bwheelhouse\b/gi, 'strength'],
+        [/\btouch base\b/gi, 'check in'], [/\bunpack\b/gi, 'explain'],
+        [/\buplevel\b/gi, 'improve'], [/\btake\s+offline\b/gi, 'discuss later'],
+        [/\bscalable\b/gi, 'growable'], [/\bactionable\b/gi, 'practical'],
+        [/\bstakeholders?\b/gi, 'people involved'],
+        [/\bthought leader/gi, 'expert'], [/\blow-hanging fruit\b/gi, 'easy win'],
+        // Enthusiasm dampeners
+        [/\btruly remarkable\b/gi, 'good'], [/\btruly\b/gi, ''],
+        [/\babsolutely\b/gi, ''], [/\bdefinitely\b/gi, ''],
+        [/\bliterally\b/gi, ''], [/\bincredibly\b/gi, 'very'],
+        [/\bextremely\b/gi, 'very'], [/\bamazing\b/gi, 'good'],
+        [/\bfantastic\b/gi, 'good'], [/\bphenomenal\b/gi, 'strong'],
+        [/\bexceptional\b/gi, 'good'], [/\bextraordinary\b/gi, 'notable'],
+        [/\bmind-?blowing\b/gi, 'surprising'], [/\bstate-?of-?the-?art\b/gi, 'modern'],
+        [/\bnext-?level\b/gi, 'better'], [/\bworld-?class\b/gi, 'excellent'],
+        // List addiction fixes
+        [/\bFirstly,?\s*/gi, 'First, '], [/\bSecondly,?\s*/gi, 'Second, '],
+        [/\bThirdly,?\s*/gi, 'Third, '], [/\bFourthly,?\s*/gi, 'Fourth, '],
+        [/\bLastly,?\s*/gi, 'Finally, '],
+        [/\bMoreover,?\s*/gi, 'Also, '], [/\bFurthermore,?\s*/gi, 'Also, '],
+        [/\bAdditionally,?\s*/gi, 'Also, '], [/\bLikewise,?\s*/gi, 'Similarly, '],
+        [/\bIn addition,?\s*/gi, 'Also, '],
+        // Passive voice patterns (basic fixes)
+        [/\bIt is believed that\b/gi, 'People believe'],
+        [/\bIt can be seen that\b/gi, ''],
+        [/\bIt should be noted that\b/gi, 'Note:'],
+        [/\bIt is recommended that\b/gi, 'We recommend'],
+        [/\bIt is estimated that\b/gi, 'Estimates show'],
       ];
+
+      let changeCount = 0;
       for (const [pattern, replacement] of replacements) {
+        const before = cleaned;
         cleaned = cleaned.replace(pattern, replacement);
+        if (before !== cleaned) changeCount++;
       }
-      // Clean up double spaces
+
+      // Cleanup
       cleaned = cleaned.replace(/\s{2,}/g, ' ').trim();
-      // Fix sentence starts after removals
-      cleaned = cleaned.replace(/^\s*,\s*/gm, '').replace(/\.\s+([a-z])/g, (m, c) => '. ' + c.toUpperCase());
+      cleaned = cleaned.replace(/^\s*,\s*/gm, '');
+      cleaned = cleaned.replace(/\.\s+([a-z])/g, (m, c) => '. ' + c.toUpperCase());
+      cleaned = cleaned.replace(/\s+([,.])/g, '$1');
+      cleaned = cleaned.replace(/^([a-z])/gm, (m, c) => c.toUpperCase());
+
+      const newWordCount = cleaned.split(/\s+/).length;
+      const reduction = origWordCount - newWordCount;
 
       const output = document.getElementById('deslop-output');
       const textEl = document.getElementById('deslop-text');
       output.classList.remove('hidden');
-      textEl.textContent = cleaned || text;
 
-      // Note: Full version would use API
-      textEl.innerHTML += '<p class="mt-3 text-xs text-gray-500 italic">💡 This is a basic client-side demo. The full version uses AI for smarter, context-aware rewrites.</p>';
+      textEl.innerHTML = `
+        <div class="text-gray-300 leading-relaxed">${escapeHtml(cleaned)}</div>
+        <div class="mt-4 flex flex-wrap gap-3 text-xs">
+          <span class="bg-green-900/30 text-green-400 px-2 py-1 rounded">${changeCount} replacements made</span>
+          ${reduction > 0 ? `<span class="bg-blue-900/30 text-blue-400 px-2 py-1 rounded">${reduction} words trimmed (${origWordCount} → ${newWordCount})</span>` : ''}
+        </div>
+      `;
     }
 
     function copyResult() {
-      const text = document.getElementById('deslop-text').textContent;
-      navigator.clipboard.writeText(text);
+      const el = document.querySelector('#deslop-text .text-gray-300');
+      if (el) navigator.clipboard.writeText(el.textContent);
     }
 
     function submitWaitlist(e) {
       e.preventDefault();
       const email = document.getElementById('waitlist-email').value;
-      // Store in localStorage + log
       const waitlist = JSON.parse(localStorage.getItem('unslop_waitlist') || '[]');
       waitlist.push({ email, ts: Date.now() });
       localStorage.setItem('unslop_waitlist', JSON.stringify(waitlist));
-      console.log('Waitlist signup:', email, 'Total:', waitlist.length);
       document.getElementById('waitlist-form').classList.add('hidden');
       document.getElementById('waitlist-success').classList.remove('hidden');
     }
 
-    // Increment counter on each analysis (persisted in localStorage)
     function incrementCounter() {
       let count = parseInt(localStorage.getItem('unslop_count') || '2847');
       count++;
       localStorage.setItem('unslop_count', count.toString());
       document.getElementById('counter').textContent = count.toLocaleString();
     }
+
+    // Init: load persisted counter
+    document.addEventListener('DOMContentLoaded', () => {
+      const saved = localStorage.getItem('unslop_count');
+      if (saved) document.getElementById('counter').textContent = parseInt(saved).toLocaleString();
+    });
   </script>
 
 
